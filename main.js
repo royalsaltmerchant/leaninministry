@@ -1,5 +1,6 @@
 // INIT
 if(window.location.pathname === '/index.html') getLatestPost()
+console.log('test')
 
 /////////////// POSTS ///////////////
 function getLatestPost() {
