@@ -13,6 +13,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: 0.3s;
 }
 
 body {
@@ -33,6 +34,16 @@ a {
   color: rgb(47, 141, 255);
   text-shadow: none;
   font-weight: bolder;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #653fe2;
+}
+
+a:active {
+  color: rgb(206, 0, 0);
 }
 
 header {
@@ -64,6 +75,10 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+nav:hover {
+  opacity: 1;
 }
 
 nav div {
@@ -133,6 +148,10 @@ footer {
   max-height: 80vh;
   opacity: 0.3;
   z-index: 0;
+}
+
+.date-time {
+  color: rgb(128, 128, 128);
 }
 
 
