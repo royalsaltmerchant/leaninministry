@@ -2,48 +2,32 @@
 if(window.location.pathname === '/index.html') getLatestPost()
 
 /////////////// POSTS ///////////////
-function getLatestPost() {
-  api(
-    'https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?number=1',
-    function success(data) {
-      // format post date
-      var dataDate = data.posts[0].date
-      let formattedDate = getFormattedDate(dataDate)
-      var html = /*html*/ `
-        <section>
-          <h2>${data.posts[0].title}</h2>
-          <small class="date-time">${formattedDate}</small>
-          <div>${data.posts[0].content}</div>
-        </section>
-      `
-      $('#latest-post').innerHTML = html
-    },
-    function error() {
-      console.log('Error with latest post API call')
-      var html = /*html*/ `<p>Error loading content...</p>`
-      $('#latest-post').innerHTML = html
+async function getLatestPost() {
+  try {
+    spinner(true)
+    var res = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?number=1')
+    if(!res.ok) {
+      throw new Error(res.status)
     }
-  )
-}
-
-//////////////////// API Old School Method ////////////////////////
-function api(path, success, error) {
-  var xhr = new XMLHttpRequest()
-
-  xhr.open('GET', path, true)
-  xhr.onreadystatechange = function() {
-    if(this.readyState == 4) {
-      spinner(false);
-      var res = xhr.response;
-      if(this.status == 200) success(JSON.parse(res))
-      else {
-        error()
-      }
-    }
+    spinner(false)
+    var data = await res.json()
+    // format post date
+    var dataDate = data.posts[0].date
+    let formattedDate = getFormattedDate(dataDate)
+    var html = /*html*/ `
+      <section>
+        <h2>${data.posts[0].title}</h2>
+        <small class="date-time">${formattedDate}</small>
+        <div>${data.posts[0].content}</div>
+      </section>
+    `
+    $('#latest-post').innerHTML = html
+  } catch(err) {
+    spinner(false)
+    console.log(err)
+    var html = /*html*/ `<p>Error loading content...</p>`
+    $('#latest-post').innerHTML = html
   }
-
-  xhr.send()
-  spinner(true)
 }
 
 //////////////////// Utilities /////////////////////////////
