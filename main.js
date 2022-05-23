@@ -1,16 +1,22 @@
 // INIT
-if(window.location.pathname === '/index.html') getLatestPost()
+var postOffset = 0
+var numberOfPosts = 0
+
+if(window.location.pathname === '/index.html') getPost()
 
 /////////////// POSTS ///////////////
-async function getLatestPost() {
+async function getPost() {
+  $('#latest-post').innerHTML = ''
   try {
     spinner(true)
-    var res = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?number=1')
+    var res = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?number=1&offset=${postOffset}`)
     if(!res.ok) {
       throw new Error(res.status)
     }
     spinner(false)
     var data = await res.json()
+    // set number of posts
+    numberOfPosts = data.found
     // format post date
     var dataDate = data.posts[0].date
     let formattedDate = getFormattedDate(dataDate)
@@ -28,6 +34,19 @@ async function getLatestPost() {
     var html = /*html*/ `<p>Error loading content...</p>`
     $('#latest-post').innerHTML = html
   }
+}
+
+function handlePreviousPost() {
+  if(postOffset !== 0) {
+    postOffset -= 1
+    getPost()
+  }
+}
+
+function handleNextPost() {
+  if(postOffset === numberOfPosts - 1) return
+  postOffset += 1
+  getPost()
 }
 
 //////////////////// Utilities /////////////////////////////

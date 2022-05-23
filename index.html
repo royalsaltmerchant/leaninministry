@@ -25,18 +25,17 @@
     </div>
   </nav>
 
-  <!-- background flower image -->
-  <!-- <img src="flowers2.png" class="large-flowers"> -->
-
   <main>
     <!-- spinning loader -->
     <div id="spinner" style="display: none;">
       <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
     </div>
-
     <div id="latest-post">
     </div>
-
+    <div class="page-btn-container">
+      <div class="page-btn" id="previous" onclick="handlePreviousPost()">Previous</div>
+      <div class="page-btn" id="next" onclick="handleNextPost()">Next</div>
+    </div>
   </main>
 
   <footer>
