@@ -96,6 +96,7 @@ async function getPost() {
 // get posts by category
 async function getPostsbyCategory() {
   var category = window.location.search.split('=')[1]
+  $('#category-title').innerText = category.replace('%20', ' ')
   try {
     spinner(true)
     var res = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?category=${category}&number=1&offset=${postOffset}`)
