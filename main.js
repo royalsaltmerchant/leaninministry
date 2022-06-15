@@ -38,6 +38,9 @@ switch(currentLocation) {
   case '/category.html':
     getPostsbyCategory()
     break
+  case '/post.html':
+    getPostByTitle()
+    break
 }
 
 // if(window.location.pathname === '/index.html') getPost()
@@ -95,11 +98,14 @@ async function getPost() {
 
 // get posts by category
 async function getPostsbyCategory() {
-  var category = window.location.search.split('=')[1]
-  $('#category-title').innerText = category.replace('%20', ' ')
+  // get category
+  var searchParams = new URLSearchParams(window.location.search)
+  var category = searchParams.get('title')
+  $('#category-title').innerText = category
+
   try {
     spinner(true)
-    var res = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?category=${category}&number=1&offset=${postOffset}`)
+    var res = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?category=${category.replace(/\//, '')}&number=100`)
     if(!res.ok) {
       throw new Error(res.status)
     }
@@ -107,24 +113,61 @@ async function getPostsbyCategory() {
     var data = await res.json()
     console.log(data)
     data.posts.forEach(post => {
-      var element = document.createElement('section')
+      var a = document.createElement('a')
+      a.href = `/post.html?id=${post.ID}`
+      var section = document.createElement('section')
+      section.classList.add("post-as-btn")
+      a.appendChild(section)
       // format post date
       var formattedDate = getFormattedDate(post.date)
       // format html
       var html = /*html*/ `
         <h2>${post.title}</h2>
         <small class="date-time">${formattedDate}</small>
-        <div>${post.content}</div>
       `
-      element.style.marginBottom = '20px'
-      element.innerHTML = html
-      $('#posts').appendChild(element)
+      section.innerHTML = html
+      $('#posts').appendChild(a)
     })
 
   } catch(err) {
     spinner(false)
     console.log(err)
   }
+}
+
+async function getPostByTitle() {
+  // get category
+  var searchParams = new URLSearchParams(window.location.search)
+  var postId = searchParams.get('id')
+
+  try {
+    spinner(true)
+    var res = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/${postId}`)
+    if(!res.ok) {
+      throw new Error(res.status)
+    }
+    spinner(false)
+    var data = await res.json()
+    console.log(data)
+    // format post date
+    var dataDate = data.date
+    var formattedDate = getFormattedDate(dataDate)
+    // format html
+    var html = /*html*/ `
+      <section>
+        <h2>${data.title}</h2>
+        <small class="date-time">${formattedDate}</small>
+        <div>${data.content}</div>
+      </section>
+    `
+    $('#post-content').innerHTML = html
+  } catch(err) {
+    spinner(false)
+    console.log(err)
+    var html = /*html*/ `<p>Error loading content...</p>`
+    $('#post-content').innerHTML = html
+  }
+  
 }
 
 function handlePrevious(mod, callback) {
@@ -153,7 +196,7 @@ async function getCategories() {
     console.log(data)
     data.categories.forEach(category => {
       var element = document.createElement('h2')
-      element.innerHTML = /*html*/ `<a href="/category.html?title=${category.name}">${category.name}</a>`
+      element.innerHTML = /*html*/ `<a href="/category.html?title=${category.name}">${category.name} (${category.post_count})</a>`
       $('#categories').appendChild(element)
     })
 

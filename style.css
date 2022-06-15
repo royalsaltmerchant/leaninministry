@@ -158,6 +158,18 @@ footer {
   color: rgb(128, 128, 128);
 }
 
+.post-as-btn {
+  cursor: pointer;
+}
+
+.post-as-btn:hover {
+  background-color: #f1ecff;
+}
+
+.post-as-btn:active {
+  background-color: rgb(255, 199, 205);
+}
+
 .page-btn-container {
   margin: 10px;
   width: 100%;
@@ -168,6 +180,7 @@ footer {
 }
 
 .page-btn {
+  color: rgb(67, 51, 209);
   background-color: rgba(253, 245, 241, 0.748);
   padding: var(--main-padding);
   border-radius: 10px;
