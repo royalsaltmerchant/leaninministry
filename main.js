@@ -11,16 +11,15 @@ $('?header').innerHTML = /*html*/ `
 $('?nav').innerHTML = /*html*/ `
   <div>
   <a href="/index.html">Home</a>
-  <a href="">About</a>
-  <a href="/categories.html">Categories</a>
-  <a href="">Recent</a>
+  <a href="/about.html">About</a>
+  <a href="/categories.html">Topics</a>
   </div>
 `
 
 // footer
 $('?footer').innerHTML = /*html*/ `
-  <p>Contact me etc etc...</p>
-  <a href="">Privacy Policy or Whatever</a>
+  <p>~ A blog for women by Lisa Nolte ~</p>
+  <a href="">Contact Lisa</a>
 `
 
 // Globals
