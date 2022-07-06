@@ -4,15 +4,15 @@
 $('?header').innerHTML = /*html*/ `
   <img src="/assets/flowers1edit.webp" style="width: 140px;">
   <p>Tabitha Ministries</p>
-  <i id="hamburger" style="font-size: 30px; cursor: pointer;" class="fa fa-bars mobile-nav"></i>
+  <i id="hamburger" style="font-size: 30px; cursor: pointer;" class="fa fa-bars mobile-nav" onmouseup="handleMobileNavClick()"></i>
 `
 
 // nav
 $('?nav').innerHTML = /*html*/ `
   <div>
-  <a href="/index.html">Home</a>
-  <a href="/about.html">About</a>
-  <a href="/categories.html">Topics</a>
+    <a href="/index.html">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/categories.html">Topics</a>
   </div>
 `
 
@@ -203,6 +203,25 @@ async function getCategories() {
     spinner(false)
     console.log(err)
   }
+}
+
+//////////////////// Mobile nav ////////////////////////////
+function handleMobileNavClick() {
+  var modal = document.createElement('div')
+  modal.setAttribute('class', 'modal')
+  var modalContent = document.createElement('div')
+  modalContent.setAttribute('class', 'modal-content')
+  modalContent.innerHTML = /*html*/ `
+    <a href="/index.html">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/categories.html">Topics</a>
+  `
+  modal.appendChild(modalContent)
+  document.body.appendChild(modal)
+
+  document.addEventListener('mousedown', function(event) {
+    if(event.target.className === 'modal') modal.remove()
+  })
 }
 
 //////////////////// Utilities /////////////////////////////
