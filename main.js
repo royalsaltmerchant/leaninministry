@@ -11,9 +11,9 @@ $('?header').innerHTML = /*html*/ `
 // nav
 $('?nav').innerHTML = /*html*/ `
   <div>
-    <a class="page-btn" href="/index.html">Home</a>
-    <a class="page-btn" href="/about.html">About</a>
-    <a class="page-btn" href="/categories.html">Topics</a>
+    <a href="/index.html">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/categories.html">Topics</a>
   </div>
 `
 
