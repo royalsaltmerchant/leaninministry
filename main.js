@@ -3,24 +3,25 @@
 // header
 $('?header').innerHTML = /*html*/ `
   <img src="/assets/flowers1edit.webp" style="width: 140px;">
-  <p>Tabitha Ministries</p>
+  <h1>Lean In...</h1>
+  <p class="tag-line">by Lisa Nolte</p>
   <i id="hamburger" style="font-size: 30px; cursor: pointer;" class="fa fa-bars mobile-nav" onmouseup="handleMobileNavClick()"></i>
 `
 
 // nav
 $('?nav').innerHTML = /*html*/ `
   <div>
-    <a href="/index.html">Home</a>
-    <a href="/about.html">About</a>
-    <a href="/categories.html">Topics</a>
+    <a class="page-btn" href="/index.html">Home</a>
+    <a class="page-btn" href="/about.html">About</a>
+    <a class="page-btn" href="/categories.html">Topics</a>
   </div>
 `
 
 // footer
-$('?footer').innerHTML = /*html*/ `
-  <p>~ A blog for women by Lisa Nolte ~</p>
-  <a href="">Contact Lisa</a>
-`
+// $('?footer').innerHTML = /*html*/ `
+//   <p>~ A blog for women by Lisa Nolte ~</p>
+//   <a href="">Contact Lisa</a>
+// `
 
 // Globals
 var postOffset = 0
@@ -65,7 +66,7 @@ async function getPost() {
     var categoriesData = Object.values(data.posts[0].categories)
     // format html
     var html = /*html*/ `
-      <section>
+      <section id="post-${data.posts[0].ID}">
         <h2>${data.posts[0].title}</h2>
         <small class="date-time">${formattedDate}</small>
         <small id="categories-list">Categories: </small>
@@ -87,6 +88,13 @@ async function getPost() {
     if($('#categories-list').children.length === 0) {
       $('#categories-list').remove()
     }
+    // print button
+    var printBtn = document.createElement('a')
+    printBtn.innerHTML = /*html*/ `<div style="font-size:14px;margin-top:-5px;margin-bottom:-10px;">🖨 Print this post</div>`
+    printBtn.addEventListener('click', () => {
+      customDivPrint($(`#post-${data.posts[0].ID}`))
+    })
+    $(`#post-${data.posts[0].ID}`).children[0].appendChild(printBtn)
   } catch(err) {
     spinner(false)
     console.log(err)
@@ -258,4 +266,14 @@ function getFormattedDate(date) {
     hour12: true
 
   })
+}
+
+// Print div
+function customDivPrint(element) {
+  var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+  WinPrint.document.write(element.innerHTML);
+  WinPrint.document.close();
+  WinPrint.focus();
+  WinPrint.print();
+  WinPrint.close();
 }

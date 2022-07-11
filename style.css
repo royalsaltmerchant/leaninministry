@@ -3,10 +3,11 @@
 
 :root {
   --light-color: #ffefe9;
-  --main-color: rgb(228, 191, 153);
+  --main-color: rgb(241, 211, 181);
   --dark-color: #e2783f;
   --main-padding: 10px;
   --border-color: rgb(222, 222, 222);
+  --a-color: rgb(77, 152, 23);
 }
 
 * {
@@ -31,19 +32,18 @@ body {
 }
 
 a {
-  color: rgb(47, 141, 255);
+  color: var(--a-color);
   text-shadow: none;
   font-weight: bolder;
-  font-size: 1.2rem;
   text-decoration: none;
 }
 
 a:hover {
-  color: #653fe2;
+  color: #ff6e3e;
 }
 
 a:active {
-  color: rgb(206, 0, 0);
+  color: rgb(255, 22, 45);
 }
 
 small a {
@@ -51,7 +51,6 @@ small a {
 }
 
 header {
-  font-size: 1.8rem;
   font-family: 'Dancing Script', cursive;
   text-shadow: 1px 0px 3px rgb(88, 88, 88);
   color: white;
@@ -66,10 +65,16 @@ header {
   position: relative;
 }
 
-header p {
+header h1 {
+  font-size: 2.5rem;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
+}
+
+.tag-line {
+  font-size: 1.2rem;
+  align-self: flex-end;
 }
 
 nav {
@@ -79,6 +84,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid darkgrey;
 }
 
 nav:hover {
@@ -86,8 +92,7 @@ nav:hover {
 }
 
 nav div {
-  width: 600px;
-  padding: 5px;
+  width: 400px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -105,8 +110,8 @@ nav div {
   nav {
     display: none;
   }
-  header {
-    font-size: 1.7rem;
+  .tag-line {
+    display: none;
   }
 }
 
@@ -186,7 +191,7 @@ footer {
 }
 
 .page-btn {
-  color: rgb(67, 51, 209);
+  color: var(--a-color);
   background-color: rgba(253, 245, 241, 0.748);
   padding: var(--main-padding);
   border-radius: 10px;
@@ -194,11 +199,11 @@ footer {
 }
 
 .page-btn:hover {
-  background-color: #cdbeff;
+  background-color: #e6dfff;
 }
 
 .page-btn:active {
-  background-color: #ffc8d7;
+  background-color: #ffe0e8;
 }
 
 #categories-list {
