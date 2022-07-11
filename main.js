@@ -161,13 +161,21 @@ async function getPostByTitle() {
     var formattedDate = getFormattedDate(dataDate)
     // format html
     var html = /*html*/ `
-      <section>
+      <section id="post-${data.ID}">
         <h2>${data.title}</h2>
         <small class="date-time">${formattedDate}</small>
         <div>${data.content}</div>
       </section>
     `
     $('#post-content').innerHTML = html
+
+    // print button
+    var printBtn = document.createElement('a')
+    printBtn.innerHTML = /*html*/ `<div style="font-size:14px;margin-top:-5px;margin-bottom:-10px;">🖨 Print this post</div>`
+    printBtn.addEventListener('click', () => {
+      customDivPrint($(`#post-${data.ID}`))
+    })
+    $(`#post-${data.ID}`).children[0].appendChild(printBtn)
   } catch(err) {
     spinner(false)
     console.log(err)
