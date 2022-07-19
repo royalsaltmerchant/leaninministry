@@ -31,6 +31,8 @@ var currentLocation = window.location.pathname.split('?')[0]
 switch(currentLocation) {
   case '/index.html':
     getPost()
+    // hide previous button on first load
+    $('#previous').style.visibility = 'hidden'
     break
   case '/categories.html':
     getCategories()
@@ -189,6 +191,7 @@ function handlePrevious(mod, callback) {
   if(postOffset !== 0) {
     postOffset -= mod
     callback()
+    if(postOffset === 0) $('#previous').style.visibility = 'hidden'
   }
 }
 
@@ -196,6 +199,7 @@ function handleNext(mod, callback) {
   if(postOffset === numberOfPosts - 1) return
   postOffset += mod
   callback()
+  if(postOffset !== 0) $('#previous').style.visibility = 'visible'
 }
 
 // get Categories
