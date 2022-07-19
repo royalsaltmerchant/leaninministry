@@ -17,14 +17,11 @@
   transition: 0.3s;
 }
 
-html, body {
+body {
   color: rgb(71, 71, 71);
   font-family: 'Open Sans', sans-serif;
   background-color: var(--light-color);
-  overflow: hidden;
-  width: 100vw;
   height: 100vh;
-  height: var( — app-height);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -109,6 +106,9 @@ nav div {
 }
 
 @media screen and (max-width: 500px) {
+  body {
+    height: 90vh;
+  }
   .mobile-nav {
     display: block;
   }
@@ -127,6 +127,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   padding: var(--main-padding);
 }
 
@@ -192,7 +193,6 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
 }
 
 .page-btn {
