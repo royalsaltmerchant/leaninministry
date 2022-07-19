@@ -127,7 +127,6 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   padding: var(--main-padding);
 }
 
@@ -193,6 +192,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .page-btn {
