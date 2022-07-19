@@ -17,11 +17,14 @@
   transition: 0.3s;
 }
 
-body {
+html, body {
   color: rgb(71, 71, 71);
   font-family: 'Open Sans', sans-serif;
   background-color: var(--light-color);
+  overflow: hidden;
+  width: 100vw;
   height: 100vh;
+  height: var( — app-height);
   display: flex;
   flex-direction: column;
   overflow: hidden;
