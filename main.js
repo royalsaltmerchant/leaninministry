@@ -28,7 +28,9 @@ var postOffset = 0
 var numberOfPosts = 0
 var currentLocation = window.location.pathname.split('?')[0]
 // on page loads
+console.log(currentLocation)
 switch(currentLocation) {
+  case '/':
   case '/index.html':
     getPost()
     // hide previous button on first load
