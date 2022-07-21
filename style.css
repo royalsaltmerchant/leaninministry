@@ -36,6 +36,7 @@ a {
   text-shadow: none;
   font-weight: bolder;
   text-decoration: none;
+  font-style: italic;
 }
 
 a:hover {
