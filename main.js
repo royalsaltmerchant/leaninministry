@@ -14,6 +14,7 @@ $('?nav').innerHTML = /*html*/ `
     <a href="/index.html">Home</a>
     <a href="/about.html">About</a>
     <a href="/categories.html">Topics</a>
+    <a href="https://open.spotify.com/show/60fggeLPuS4dlGGJaSNtHJ?si=02daa795a75343cc">Podcast</a>
   </div>
 `
 
@@ -237,6 +238,7 @@ function handleMobileNavClick() {
     <a href="/index.html">Home</a>
     <a href="/about.html">About</a>
     <a href="/categories.html">Topics</a>
+    <a href="https://open.spotify.com/show/60fggeLPuS4dlGGJaSNtHJ?si=02daa795a75343cc">Podcast</a>
   `
   modal.appendChild(modalContent)
   document.body.appendChild(modal)
