@@ -94,8 +94,8 @@ nav:hover {
   opacity: 1;
 }
 
-nav div {
-  width: 400px;
+nav #nav-main {
+  width: 600px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -104,6 +104,22 @@ nav div {
 
 .mobile-nav {
   display: none;
+}
+
+#mobile-search {
+  border: 1px solid var(--border-color);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#mobile-search input {
+  font-size: 1.3rem;
+}
+
+#query-title {
+  line-break: anywhere;
 }
 
 @media screen and (max-width: 500px) {

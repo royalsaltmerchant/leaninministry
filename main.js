@@ -10,11 +10,14 @@ $('?header').innerHTML = /*html*/ `
 
 // nav
 $('?nav').innerHTML = /*html*/ `
-  <div>
+  <div id="nav-main">
     <a href="/index.html">Home</a>
     <a href="/about.html">About</a>
     <a href="/categories.html">Topics</a>
     <a href="https://open.spotify.com/show/60fggeLPuS4dlGGJaSNtHJ?si=02daa795a75343cc">Podcast</a>
+    <form onsubmit="handleSearch(event)">
+      <input id="search" size="20"><input type="submit" value="Search">
+    </form>
   </div>
 `
 
@@ -45,6 +48,9 @@ switch(currentLocation) {
     break
   case '/post.html':
     getPostByTitle()
+    break
+  case '/search.html':
+    getPostsbySearch()
     break
 }
 
@@ -118,6 +124,45 @@ async function getPostsbyCategory() {
   try {
     spinner(true)
     var res = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?category=${category.replace(/\//, '')}&number=100`)
+    if(!res.ok) {
+      throw new Error(res.status)
+    }
+    spinner(false)
+    var data = await res.json()
+    console.log(data)
+    data.posts.forEach(post => {
+      var a = document.createElement('a')
+      a.href = `/post.html?id=${post.ID}`
+      var section = document.createElement('section')
+      section.classList.add("post-as-btn")
+      a.appendChild(section)
+      // format post date
+      var formattedDate = getFormattedDate(post.date)
+      // format html
+      var html = /*html*/ `
+        <h2>${post.title}</h2>
+        <small class="date-time">${formattedDate}</small>
+      `
+      section.innerHTML = html
+      $('#posts').appendChild(a)
+    })
+
+  } catch(err) {
+    spinner(false)
+    console.log(err)
+  }
+}
+
+// get posts by search
+async function getPostsbySearch() {
+  // set title for search query
+  var searchParams = new URLSearchParams(window.location.search)
+  var query = searchParams.get('query')
+  $('#query-title').innerText = `Search: "${query}"`
+
+  try {
+    spinner(true)
+    var res = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/tabithaministriesmt.wordpress.com/posts/?search="${query}"`)
     if(!res.ok) {
       throw new Error(res.status)
     }
@@ -239,6 +284,9 @@ function handleMobileNavClick() {
     <a href="/about.html">About</a>
     <a href="/categories.html">Topics</a>
     <a href="https://open.spotify.com/show/60fggeLPuS4dlGGJaSNtHJ?si=02daa795a75343cc">Podcast</a>
+    <form onsubmit="handleSearch(event)" id="mobile-search">
+      <input id="search" size="10"><input type="submit" value="Search">
+    </form>
   `
   modal.appendChild(modalContent)
   document.body.appendChild(modal)
@@ -292,4 +340,11 @@ function customDivPrint(element) {
   WinPrint.focus();
   WinPrint.print();
   WinPrint.close();
+}
+
+// for search
+function handleSearch(event) {
+  event.preventDefault()
+  var query = event.target.search.value
+  window.location.href = window.location.pathname = `/search.html?query=${query}`
 }
